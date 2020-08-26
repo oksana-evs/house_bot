@@ -23,4 +23,11 @@ public enum HouseCleaning {
     public void setDone(boolean done) {
         isDone = done;
     }
+
+    public static void reset() {
+        for (HouseCleaning cleaning : HouseCleaning.values()) {
+            System.out.printf("Setting %s to done\n", cleaning.getName());
+            cleaning.setDone(false);
+        }
+    }
 }

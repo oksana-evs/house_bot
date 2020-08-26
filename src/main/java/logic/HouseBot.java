@@ -6,15 +6,21 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class HouseBot extends TelegramLongPollingBot {
+    private static final List<Integer> allowedUserIds = List.of(104051418, 34173811);
 
     @Override
     public void onUpdateReceived(Update update) {
         Message userMessage = update.getMessage();
         if (userMessage != null && userMessage.hasText()) {
+            if (!allowedUserIds.contains(userMessage.getFrom().getId())) {
+                sendMsg(userMessage, "Sorry, this is a private bot");
+                return;
+            }
             final String text = userMessage.getText();
             switch (text) {
                 case "/start":
@@ -35,6 +41,10 @@ public class HouseBot extends TelegramLongPollingBot {
                     sendMsg(userMessage, "You are dusting off!");
                     HouseCleaning.DUST_OFF.setDone(true);
                     break;
+                case "/reset":
+                    HouseCleaning.reset();
+                    sendMsg(userMessage, "Reset");
+                    break;
                 default:
                     sendMsg(userMessage,"Unknown command");
 
@@ -53,13 +63,11 @@ public class HouseBot extends TelegramLongPollingBot {
     }
 
     private void sendMsg(Message message, String text) {
-        long chatId = message.getChatId();
-
-        SendMessage response = new SendMessage() // Create a message object object
-                .setChatId(chatId)
+        SendMessage response = new SendMessage()
+                .setChatId(message.getChatId())
                 .setText(text);
         try {
-            execute(response); // Sending our message object to user
+            execute(response);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
