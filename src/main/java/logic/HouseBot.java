@@ -34,12 +34,20 @@ public class HouseBot extends TelegramLongPollingBot {
                     HouseCleaning.VACUUMING.setDone(true);
                     break;
                 case "/sink":
-                    sendMsg(userMessage, "You are cleaning the sinks!");
+                    sendMsg(userMessage, "You are cleaning the sinks (kitchen + bathroom)!");
                     HouseCleaning.SINK_WASHING.setDone(true);
+                    break;
+                case "/hob":
+                    sendMsg(userMessage, "You are cleaning the hob!");
+                    HouseCleaning.HOB.setDone(true);
                     break;
                 case "/dust":
                     sendMsg(userMessage, "You are dusting off!");
                     HouseCleaning.DUST_OFF.setDone(true);
+                    break;
+                case "/wc":
+                    sendMsg(userMessage, "You are cleaning the toilet!");
+                    HouseCleaning.WC.setDone(true);
                     break;
                 case "/reset":
                     HouseCleaning.reset();

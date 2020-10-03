@@ -3,6 +3,8 @@ package logic;
 public enum HouseCleaning {
     VACUUMING("/vacuum"),
     SINK_WASHING("/sink"),
+    HOB("/hob"),
+    WC("/wc"),
     DUST_OFF("/dust");
 
     private final String name;
