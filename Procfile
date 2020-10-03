@@ -1,1 +1,1 @@
-worker: java -jar target/house_bot-1.0-SNAPSHOT
+worker: sh target/bin/houseBot
