@@ -1,1 +1,1 @@
-web: sh target/bin/houseBot
+worker: sh target/bin/houseBot
