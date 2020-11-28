@@ -54,7 +54,7 @@ public class HouseBot extends TelegramLongPollingBot {
                     sendMsg(userMessage, "Reset");
                     break;
                 default:
-                    sendMsg(userMessage,"Unknown command");
+                    sendMsg(userMessage,"Unknown command!");
 
             }
         }
